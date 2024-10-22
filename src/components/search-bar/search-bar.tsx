@@ -4,9 +4,13 @@ import React from "react";
 
 const SearchBar = () => {
   return (
-    <div>
+    <div className="flex items-center">
       <TextField id="filled-basic" label="Search user name" variant="filled" />
-      <Button variant="contained" onClick={() => alert("search")}>
+      <Button
+        className="ml-2"
+        variant="contained"
+        onClick={() => alert("search")}
+      >
         Search
       </Button>
     </div>
