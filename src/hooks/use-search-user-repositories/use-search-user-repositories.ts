@@ -1,7 +1,5 @@
-import { Octokit } from "octokit";
 import { useQuery } from "@tanstack/react-query";
-
-const octokit = new Octokit();
+import octokit from "@/utils/octokit";
 
 const fetchUserRepositories = async (username: string) => {
   const response = await octokit.request(`GET /users/${username}/repos`, {
