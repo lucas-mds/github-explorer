@@ -1,8 +1,10 @@
 "use client";
+import useSearchUsers from "@/hooks/use-search-users";
 import { Button, TextField } from "@mui/material";
-import React from "react";
 
 const SearchBar = () => {
+  const { data } = useSearchUsers("test");
+
   return (
     <div className="flex items-center">
       <TextField id="filled-basic" label="Search user name" variant="filled" />
