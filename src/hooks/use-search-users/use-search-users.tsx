@@ -18,6 +18,7 @@ const useSearchUsers = (query: string) => {
   return useQuery({
     queryKey: ["users", query],
     queryFn: () => fetchUsers(query),
+    enabled: false,
   });
 };
 
