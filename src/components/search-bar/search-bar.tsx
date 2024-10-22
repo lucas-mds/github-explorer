@@ -1,16 +1,27 @@
-"use client";
-import useSearchUsers from "@/hooks/use-search-users";
 import { Button, TextField } from "@mui/material";
+import { useState } from "react";
 
-const SearchBar = () => {
-  const { data, refetch } = useSearchUsers("lucas-mds");
+type SearchBarProps = {
+  onClick: (nextValue: string) => void;
+};
 
-  console.log(data);
+const SearchBar = ({ onClick }: SearchBarProps) => {
+  const [internalValue, setInternalValue] = useState("");
 
   return (
     <div className="flex items-center">
-      <TextField id="filled-basic" label="Search user name" variant="filled" />
-      <Button className="ml-2" variant="contained" onClick={() => refetch()}>
+      <TextField
+        value={internalValue}
+        onChange={(event) => setInternalValue(event.target.value)}
+        id="filled-basic"
+        label="Search user name"
+        variant="filled"
+      />
+      <Button
+        className="ml-2"
+        variant="contained"
+        onClick={() => onClick(internalValue)}
+      >
         Search
       </Button>
     </div>
