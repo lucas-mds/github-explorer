@@ -16,7 +16,7 @@ const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center md:flex-row">
       <TextField
         fullWidth
         value={internalValue}
@@ -35,11 +35,11 @@ const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
         }}
       />
       <Button
-        className="mt-4"
-        fullWidth
+        className="mt-4 w-full md:w-60 md:mt-0 md:ml-4 "
         variant="contained"
         onClick={handleClick}
         isLoading={isLoading}
+        size="large"
       >
         Search
       </Button>
