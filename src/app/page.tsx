@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import SearchBar from "@/components/search-bar";
+import UserCard from "@/components/user-card";
 import useSearchUsers from "@/hooks/use-search-users";
 import useSearchUserRepositories from "@/hooks/use-search-user-repositories";
 import styles from "./page.module.css";
@@ -27,6 +28,7 @@ export default function Home() {
               {user.login}
             </li>
           ))}
+          <UserCard />
         </ul>
       </main>
     </div>
