@@ -16,7 +16,7 @@ const ReposList = ({ repos }: ReposListProps) => {
   };
 
   return (
-    <List>
+    <List className="max-h-80 overflow-y-auto	">
       {repos?.map((item, index) => (
         <Box key={item.id}>
           <ListItem>
@@ -46,6 +46,11 @@ const ReposList = ({ repos }: ReposListProps) => {
           )}
         </Box>
       ))}
+      {repos?.length === 0 && (
+        <ListItem>
+          <Typography variant="body2">No repositories found</Typography>
+        </ListItem>
+      )}
     </List>
   );
 };

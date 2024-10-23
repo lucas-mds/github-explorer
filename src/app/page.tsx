@@ -3,12 +3,13 @@ import { useState } from "react";
 import SearchBar from "@/components/search-bar";
 import UserCard from "@/components/user-card";
 import useSearchUsers from "@/hooks/use-search-users";
-import styles from "./page.module.css";
 import { AppBar, Box, Typography } from "@mui/material";
+import Button from "@/components/button";
 
 export default function Home() {
   const [query, setQuery] = useState("");
-  const { data, isLoading } = useSearchUsers(query);
+  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useSearchUsers(query);
 
   return (
     <>
@@ -25,15 +26,30 @@ export default function Home() {
               </Typography>
             </Box>
           )}
-          <ul>
-            {data?.items.map((user) => (
+          {!data?.pages[0].items.length && !isLoading && (
+            <Typography variant="subtitle1" className="my-6 text-center">
+              You haven’t searched for anything yet
+            </Typography>
+          )}
+          {data?.pages.map((page) =>
+            page.items.map((user) => (
               <UserCard
                 key={user.id}
                 name={user.login}
                 avatarUrl={user.avatar_url}
               />
-            ))}
-          </ul>
+            ))
+          )}
+          {!isLoading && hasNextPage && (
+            <Button
+              isLoading={isFetchingNextPage}
+              fullWidth
+              variant="contained"
+              onClick={() => fetchNextPage()}
+            >
+              Load more
+            </Button>
+          )}
         </main>
       </div>
     </>

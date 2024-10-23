@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button, InputAdornment, TextField } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import Button from "../button";
 
 type SearchBarProps = {
   isLoading?: boolean;
@@ -12,8 +12,6 @@ const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
   const [internalValue, setInternalValue] = useState("");
 
   const handleClick = () => {
-    if (isLoading) return;
-
     onClick(internalValue);
   };
 
@@ -41,8 +39,9 @@ const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
         fullWidth
         variant="contained"
         onClick={handleClick}
+        isLoading={isLoading}
       >
-        {isLoading ? <MoreHorizIcon className="animate-pulse" /> : "Search"}
+        Search
       </Button>
     </div>
   );

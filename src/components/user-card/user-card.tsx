@@ -26,7 +26,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
 
   return (
     <Card className="mb-4">
-      <CardContent>
+      <CardContent onClick={handleClick}>
         <Box className="flex flex-row items-center justify-between">
           <Box className="flex flex-row items-center">
             <Avatar variant="square" className="rounded" src={avatarUrl} />
@@ -34,9 +34,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
               {name}
             </Typography>
           </Box>
-          <Box onClick={handleClick}>
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </Box>
+          {open ? <ExpandLess /> : <ExpandMore />}
         </Box>
       </CardContent>
       <Collapse in={open} timeout="auto">
