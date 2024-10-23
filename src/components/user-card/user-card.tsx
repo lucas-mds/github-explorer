@@ -9,31 +9,38 @@ import {
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import ReposList from "../repos-list";
+import useSearchUserRepositories from "@/hooks/use-search-user-repositories";
 
-const UserCard = () => {
+type UserCardProps = {
+  name: string;
+  avatarUrl?: string;
+};
+
+const UserCard = ({ name, avatarUrl }: UserCardProps) => {
   const [open, setOpen] = useState(false);
+  const { data: repos } = useSearchUserRepositories(name);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   return (
-    <Card sx={{ width: 300 }}>
+    <Card sx={{ width: 300 }} className="mb-4">
       <CardContent>
         <Box className="flex flex-row items-center justify-between">
           <Box className="flex flex-row items-center">
-            <Avatar
-              variant="square"
-              className="rounded"
-              src="https://avatars.githubusercontent.com/u/26863142?v=4"
-            />
+            <Avatar variant="square" className="rounded" src={avatarUrl} />
             <Typography variant="h6" className="ml-2">
-              lucas-mds
+              {name}
             </Typography>
           </Box>
-          <Box onClick={() => setOpen(!open)}>
+          <Box onClick={handleClick}>
             {open ? <ExpandLess /> : <ExpandMore />}
           </Box>
         </Box>
       </CardContent>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <ReposList />
+      <Collapse in={open} timeout="auto">
+        <ReposList repos={repos || []} />
       </Collapse>
     </Card>
   );

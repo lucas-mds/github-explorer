@@ -1,8 +1,12 @@
 import { Box, Divider, Link, List, ListItem, Typography } from "@mui/material";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
-import Data from "./data.json";
+import { RepositoryResponse } from "@/hooks/use-search-user-repositories";
 
-const ReposList = ({ repos = Data }) => {
+type ReposListProps = {
+  repos?: RepositoryResponse[];
+};
+
+const ReposList = ({ repos }: ReposListProps) => {
   const formatStarsCount = (starCount: number) => {
     if (starCount >= 1000) {
       return `${(starCount / 1000).toFixed(1)}k`;
@@ -13,7 +17,7 @@ const ReposList = ({ repos = Data }) => {
 
   return (
     <List>
-      {repos.map((item, index) => (
+      {repos?.map((item, index) => (
         <Box key={item.id}>
           <ListItem>
             <Box className="w-full">

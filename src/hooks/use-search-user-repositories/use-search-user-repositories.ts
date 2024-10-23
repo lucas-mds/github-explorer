@@ -1,6 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import octokit from "@/utils/octokit";
 
+export type RepositoryResponse = {
+  id: number;
+  name: string;
+  svn_url: string;
+  stargazers_count: number;
+  description: string;
+};
+
 const fetchUserRepositories = async (username: string) => {
   const response = await octokit.request(`GET /users/${username}/repos`, {
     headers: {
@@ -12,7 +20,7 @@ const fetchUserRepositories = async (username: string) => {
 };
 
 const useSearchUserRepositories = (username: string) => {
-  return useQuery({
+  return useQuery<RepositoryResponse[]>({
     queryKey: ["repositories", username],
     queryFn: () => fetchUserRepositories(username),
     enabled: !!username,
