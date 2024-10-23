@@ -1,5 +1,6 @@
-import { Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { Button, InputAdornment, TextField } from "@mui/material";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 
 type SearchBarProps = {
   onClick: (nextValue: string) => void;
@@ -9,16 +10,26 @@ const SearchBar = ({ onClick }: SearchBarProps) => {
   const [internalValue, setInternalValue] = useState("");
 
   return (
-    <div className="flex items-center">
+    <div className="flex flex-col items-center">
       <TextField
         value={internalValue}
         onChange={(event) => setInternalValue(event.target.value)}
         id="filled-basic"
-        label="Search user name"
-        variant="filled"
+        placeholder="Enter username"
+        variant="outlined"
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <PersonSearchIcon />
+              </InputAdornment>
+            ),
+          },
+        }}
       />
       <Button
-        className="ml-2"
+        className="mt-4"
+        fullWidth
         variant="contained"
         onClick={() => onClick(internalValue)}
       >
