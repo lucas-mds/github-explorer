@@ -19,11 +19,11 @@ const fetchUserRepositories = async (username: string) => {
   return response.data;
 };
 
-const useSearchUserRepositories = (username: string) => {
+const useSearchUserRepositories = (username: string, open: boolean) => {
   return useQuery<RepositoryResponse[]>({
     queryKey: ["repositories", username],
     queryFn: () => fetchUserRepositories(username),
-    enabled: !!username,
+    enabled: !!username && open,
   });
 };
 

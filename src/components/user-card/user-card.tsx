@@ -18,10 +18,17 @@ type UserCardProps = {
 
 const UserCard = ({ name, avatarUrl }: UserCardProps) => {
   const [open, setOpen] = useState(false);
-  const { data: repos } = useSearchUserRepositories(name);
+  const [enableSearch, setEnableSearch] = useState(false);
+  const {
+    data: repos,
+    isLoading,
+    error,
+    isError,
+  } = useSearchUserRepositories(name, enableSearch);
 
   const handleClick = () => {
     setOpen(!open);
+    setEnableSearch(true);
   };
 
   return (
@@ -34,10 +41,15 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
               {name}
             </Typography>
           </Box>
-          {open ? <ExpandLess /> : <ExpandMore />}
+          {open ? (
+            <ExpandLess />
+          ) : (
+            <ExpandMore className={`${!isLoading && "animate-pulse"}`} />
+          )}
         </Box>
       </CardContent>
-      <Collapse in={open} timeout="auto">
+      <Collapse in={open && !isLoading} timeout={600}>
+        {error?.message}
         <ReposList repos={repos || []} />
       </Collapse>
     </Card>
