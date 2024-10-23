@@ -1,5 +1,9 @@
 import { Octokit } from "octokit";
 
-const octokit = new Octokit();
+const octokit = new Octokit({
+  throttle: {
+    enabled: false,
+  },
+});
 
 export default octokit;

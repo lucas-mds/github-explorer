@@ -9,6 +9,14 @@ export type RepositoryResponse = {
   description: string;
 };
 
+export type ErrorResponse = {
+  response: {
+    data: {
+      message: string;
+    };
+  };
+};
+
 const fetchUserRepositories = async (username: string) => {
   const response = await octokit.request(`GET /users/${username}/repos`, {
     headers: {
@@ -20,10 +28,11 @@ const fetchUserRepositories = async (username: string) => {
 };
 
 const useSearchUserRepositories = (username: string, open: boolean) => {
-  return useQuery<RepositoryResponse[]>({
+  return useQuery<RepositoryResponse[], ErrorResponse>({
     queryKey: ["repositories", username],
     queryFn: () => fetchUserRepositories(username),
     enabled: !!username && open,
+    retry: false,
   });
 };
 

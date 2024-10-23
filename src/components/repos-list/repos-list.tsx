@@ -3,10 +3,11 @@ import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import { RepositoryResponse } from "@/hooks/use-search-user-repositories";
 
 type ReposListProps = {
-  repos?: RepositoryResponse[];
+  repos: RepositoryResponse[];
+  errorMessage?: string;
 };
 
-const ReposList = ({ repos }: ReposListProps) => {
+const ReposList = ({ repos, errorMessage }: ReposListProps) => {
   const formatStarsCount = (starCount: number) => {
     if (starCount >= 1000) {
       return `${(starCount / 1000).toFixed(1)}k`;
@@ -46,9 +47,16 @@ const ReposList = ({ repos }: ReposListProps) => {
           )}
         </Box>
       ))}
-      {repos?.length === 0 && (
+      {repos?.length === 0 && !errorMessage && (
         <ListItem>
           <Typography variant="body2">No repositories found</Typography>
+        </ListItem>
+      )}
+      {repos?.length === 0 && errorMessage && (
+        <ListItem>
+          <Typography variant="body2" color="error">
+            {errorMessage}
+          </Typography>
         </ListItem>
       )}
     </List>

@@ -23,7 +23,6 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
     data: repos,
     isLoading,
     error,
-    isError,
   } = useSearchUserRepositories(name, enableSearch);
 
   const handleClick = () => {
@@ -44,13 +43,15 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
           {open ? (
             <ExpandLess />
           ) : (
-            <ExpandMore className={`${!isLoading && "animate-pulse"}`} />
+            <ExpandMore className={`${isLoading && "animate-pulse"}`} />
           )}
         </Box>
       </CardContent>
       <Collapse in={open && !isLoading} timeout={600}>
-        {error?.message}
-        <ReposList repos={repos || []} />
+        <ReposList
+          repos={repos || []}
+          errorMessage={error?.response?.data.message}
+        />
       </Collapse>
     </Card>
   );
