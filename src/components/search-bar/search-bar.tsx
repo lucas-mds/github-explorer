@@ -26,6 +26,7 @@ const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
         variant="outlined"
         slotProps={{
           input: {
+            className: "md:h-9",
             startAdornment: (
               <InputAdornment position="start">
                 <PersonSearchIcon />
@@ -35,11 +36,10 @@ const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
         }}
       />
       <Button
-        className="mt-4 w-full md:w-60 md:mt-0 md:ml-4 "
+        className="mt-4 w-full md:w-60 md:mt-0 md:ml-4 md:h-9"
         variant="contained"
         onClick={handleClick}
         isLoading={isLoading}
-        size="large"
       >
         Search
       </Button>

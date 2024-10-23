@@ -22,7 +22,7 @@ export default function Home() {
           {query && data && !isLoading && (
             <Box className="my-4">
               <Typography variant="caption">
-                Showing results for "{query}"
+                Showing results for &quot;{query}&quot;
               </Typography>
             </Box>
           )}
@@ -41,14 +41,17 @@ export default function Home() {
             ))
           )}
           {!isLoading && hasNextPage && (
-            <Button
-              isLoading={isFetchingNextPage}
-              fullWidth
-              variant="contained"
-              onClick={() => fetchNextPage()}
-            >
-              Load more
-            </Button>
+            <Box className=" flex justify-center">
+              <Button
+                isLoading={isFetchingNextPage}
+                fullWidth
+                variant="contained"
+                className="md:w-60 "
+                onClick={() => fetchNextPage()}
+              >
+                Load more
+              </Button>
+            </Box>
           )}
         </main>
       </div>
