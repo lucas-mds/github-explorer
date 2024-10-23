@@ -25,7 +25,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
   };
 
   return (
-    <Card sx={{ width: 300 }} className="mb-4">
+    <Card className="mb-4">
       <CardContent>
         <Box className="flex flex-row items-center justify-between">
           <Box className="flex flex-row items-center">

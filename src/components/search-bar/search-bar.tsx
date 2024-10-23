@@ -20,6 +20,7 @@ const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
   return (
     <div className="flex flex-col items-center">
       <TextField
+        fullWidth
         value={internalValue}
         onChange={(event) => setInternalValue(event.target.value)}
         id="filled-basic"

@@ -4,31 +4,38 @@ import SearchBar from "@/components/search-bar";
 import UserCard from "@/components/user-card";
 import useSearchUsers from "@/hooks/use-search-users";
 import styles from "./page.module.css";
-import { Typography } from "@mui/material";
+import { AppBar, Box, Typography } from "@mui/material";
 
 export default function Home() {
   const [query, setQuery] = useState("");
   const { data, isLoading } = useSearchUsers(query);
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <SearchBar isLoading={isLoading} onClick={setQuery} />
-        {query && data && !isLoading && (
-          <Typography variant="caption">
-            Showing results for "{query}"
-          </Typography>
-        )}
-        <ul>
-          {data?.items.map((user) => (
-            <UserCard
-              key={user.id}
-              name={user.login}
-              avatarUrl={user.avatar_url}
-            />
-          ))}
-        </ul>
-      </main>
-    </div>
+    <>
+      <AppBar position="static" className="h-12 justify-center pl-4">
+        <Typography variant="h6">Github Explorer</Typography>
+      </AppBar>
+      <div className="p-10">
+        <main>
+          <SearchBar isLoading={isLoading} onClick={setQuery} />
+          {query && data && !isLoading && (
+            <Box className="my-4">
+              <Typography variant="caption">
+                Showing results for "{query}"
+              </Typography>
+            </Box>
+          )}
+          <ul>
+            {data?.items.map((user) => (
+              <UserCard
+                key={user.id}
+                name={user.login}
+                avatarUrl={user.avatar_url}
+              />
+            ))}
+          </ul>
+        </main>
+      </div>
+    </>
   );
 }
