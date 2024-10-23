@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 export default function Home() {
   const [query, setQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
-  const { data } = useSearchUsers(query);
+  const { data, isLoading } = useSearchUsers(query);
   const { data: reposData } = useSearchUserRepositories(selectedUser);
 
   const handleUsrClick = (user: string) => {
@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <SearchBar onClick={setQuery} />
+        <SearchBar isLoading={isLoading} onClick={setQuery} />
         <ul>
           {data?.items.map((user) => (
             <li key={user.id} onClick={() => handleUsrClick(user.login)}>

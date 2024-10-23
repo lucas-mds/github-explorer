@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { Button, InputAdornment, TextField } from "@mui/material";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 type SearchBarProps = {
+  isLoading?: boolean;
   onClick: (nextValue: string) => void;
 };
 
-const SearchBar = ({ onClick }: SearchBarProps) => {
+const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
   const [internalValue, setInternalValue] = useState("");
+
+  const handleClick = () => {
+    if (isLoading) return;
+
+    onClick(internalValue);
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -31,9 +39,9 @@ const SearchBar = ({ onClick }: SearchBarProps) => {
         className="mt-4"
         fullWidth
         variant="contained"
-        onClick={() => onClick(internalValue)}
+        onClick={handleClick}
       >
-        Search
+        {isLoading ? <MoreHorizIcon className="animate-pulse" /> : "Search"}
       </Button>
     </div>
   );
