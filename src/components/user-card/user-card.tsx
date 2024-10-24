@@ -54,7 +54,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
               {name}
             </Typography>
           </Box>
-          {open ? (
+          {open && !isLoading ? (
             <ExpandLess />
           ) : (
             <ExpandMore className={`${isLoading && "animate-pulse"}`} />
