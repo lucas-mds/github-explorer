@@ -8,8 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import useSearchUserRepositories, {
+  ErrorResponse,
+} from "@/hooks/use-search-user-repositories";
 import ReposList from "../repos-list";
-import useSearchUserRepositories from "@/hooks/use-search-user-repositories";
 
 type UserCardProps = {
   name: string;
@@ -23,6 +25,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
     data: repos,
     isLoading,
     error,
+    fetchNextPage,
   } = useSearchUserRepositories(name, enableSearch);
 
   const handleClick = () => {
@@ -49,8 +52,12 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
       </CardContent>
       <Collapse in={open && !isLoading} timeout={600}>
         <ReposList
-          repos={repos || []}
-          errorMessage={error?.response?.data.message}
+          repos={repos}
+          errorMessage={
+            (error as unknown as ErrorResponse)?.response?.data.message ||
+            "An error has occurred"
+          }
+          onClick={() => fetchNextPage()}
         />
       </Collapse>
     </Card>
