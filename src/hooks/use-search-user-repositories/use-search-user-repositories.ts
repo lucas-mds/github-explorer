@@ -1,6 +1,7 @@
+import { Octokit } from "octokit";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import octokit from "@/utils/octokit";
 import getNextPageParameter from "@/utils/get-next-page-parameter";
+import useOctokit from "../user-octokit";
 
 export type Item = {
   id: number;
@@ -20,7 +21,8 @@ export type ErrorResponse = {
 
 const fetchUserRepositories = async (
   username: string,
-  page: number | undefined
+  page: number | undefined,
+  octokit: Octokit
 ) => {
   const response = await octokit.request(`GET /users/${username}/repos`, {
     headers: {
@@ -36,9 +38,12 @@ const fetchUserRepositories = async (
 };
 
 const useSearchUserRepositories = (username: string, open: boolean) => {
+  const octokit = useOctokit();
+
   return useInfiniteQuery({
     queryKey: ["repositories", username],
-    queryFn: ({ pageParam }) => fetchUserRepositories(username, pageParam),
+    queryFn: ({ pageParam }) =>
+      fetchUserRepositories(username, pageParam, octokit),
     getNextPageParam: (lastPage) => lastPage.nextPage,
     enabled: !!username && open,
     initialPageParam: 1,

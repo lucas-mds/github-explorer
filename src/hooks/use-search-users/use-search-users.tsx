@@ -1,8 +1,9 @@
+import { Octokit } from "octokit";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import octokit from "@/utils/octokit";
 import getNextPageParameter from "@/utils/get-next-page-parameter";
+import useOctokit from "../user-octokit";
 
-const fetchUsers = async (query: string, page: number) => {
+const fetchUsers = async (query: string, page: number, octokit: Octokit) => {
   const response = await octokit.request("GET /search/users", {
     headers: {
       "X-GitHub-Api-Version": "2022-11-28",
@@ -21,9 +22,11 @@ const fetchUsers = async (query: string, page: number) => {
 };
 
 const useSearchUsers = (query: string) => {
+  const octokit = useOctokit();
+
   return useInfiniteQuery({
     queryKey: ["users", query],
-    queryFn: ({ pageParam }) => fetchUsers(query, pageParam),
+    queryFn: ({ pageParam }) => fetchUsers(query, pageParam, octokit),
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
     enabled: !!query,

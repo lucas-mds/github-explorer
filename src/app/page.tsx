@@ -5,6 +5,7 @@ import UserCard from "@/components/user-card";
 import useSearchUsers from "@/hooks/use-search-users";
 import { AppBar, Box, Typography } from "@mui/material";
 import Button from "@/components/button";
+import TokenSettingsDialog from "@/components/token-settings-dialog";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -14,7 +15,10 @@ export default function Home() {
   return (
     <>
       <AppBar position="static" className="h-12 justify-center pl-4">
-        <Typography variant="h6">Github Explorer</Typography>
+        <Box className="flex flex-row items-center justify-between">
+          <Typography variant="h6">Github Explorer</Typography>
+          <TokenSettingsDialog />
+        </Box>
       </AppBar>
       <div className="p-10">
         <main>
