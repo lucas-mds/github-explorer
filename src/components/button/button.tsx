@@ -4,11 +4,18 @@ import {
 } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-type ButtonProps = {
+export type ButtonProps = {
   isLoading?: boolean;
+  children?: MuiButtonProps["children"];
+  loadingIconTestID?: string;
 } & MuiButtonProps;
 
-const Button = ({ isLoading, ...props }: ButtonProps) => {
+const Button = ({
+  isLoading,
+  loadingIconTestID,
+  children,
+  ...props
+}: ButtonProps) => {
   return (
     <MuiButton
       onClick={(e) => {
@@ -17,7 +24,14 @@ const Button = ({ isLoading, ...props }: ButtonProps) => {
       }}
       {...props}
     >
-      {isLoading ? <MoreHorizIcon className="animate-pulse" /> : props.children}
+      {isLoading ? (
+        <MoreHorizIcon
+          data-testid={loadingIconTestID}
+          className="animate-pulse"
+        />
+      ) : (
+        children
+      )}
     </MuiButton>
   );
 };

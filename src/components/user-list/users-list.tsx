@@ -3,7 +3,7 @@ import { UsersResponse } from "@/hooks/use-search-users";
 import UserCard from "../user-card";
 import Button from "../button";
 
-type UsersListProps = {
+export type UsersListProps = {
   items: UsersResponse;
   searchTerm: string;
   isLoading: boolean;
