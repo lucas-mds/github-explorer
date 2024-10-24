@@ -3,7 +3,7 @@ import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import { RepositoriesResponse } from "@/hooks/use-search-user-repositories";
 import Button from "../button";
 
-type ReposListProps = {
+export type ReposListProps = {
   repos: RepositoriesResponse;
   isLoading: boolean;
   errorMessage?: string;
@@ -32,7 +32,7 @@ const ReposList = ({
     <List className="max-h-80 overflow-y-auto	">
       {repos?.map((item) => {
         return (
-          <Box key={item.id}>
+          <Box data-testid={`repo-line-item-${item.id}`} key={item.id}>
             <ListItem>
               <Box className="w-full">
                 <Box className="w-full flex flex-row justify-between">
