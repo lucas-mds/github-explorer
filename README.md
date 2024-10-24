@@ -13,6 +13,7 @@ It was made with:
 - Zustand
 - Jest
 - Cypress
+- Vercel
 
 ## Getting Started
 
@@ -33,6 +34,34 @@ npm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+#
+
+#### Tests
+
+Cypress is testing the main use case fof searching for an user and listing their repositories. As long as the dialog to add a token.
+
+To run it:
+
+```bash
+#start the project
+yarn run
+#run the tests
+yarn e2e:chrome
+
+#alternatively you can start Cypress dashboard and run it from there
+npx cypress open
+```
+
+##
+
+Jest is covering some of the core components, **Button, RepoList and UsersList**, with unit tests.
+
+To verify them, run:
+
+```bash
+yarn test
+```
 
 ##### API rate limit
 
