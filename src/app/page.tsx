@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <>
-      <AppBar position="static" className="h-12 justify-center pl-4">
+      <AppBar position="static" className="h-12 justify-center px-4">
         <Box className="flex flex-row items-center justify-between">
           <Typography variant="h6">Github Explorer</Typography>
           <TokenSettingsDialog />

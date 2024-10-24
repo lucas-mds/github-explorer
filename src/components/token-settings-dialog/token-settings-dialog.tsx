@@ -8,7 +8,7 @@ import {
   IconButton,
   TextField,
 } from "@mui/material";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import useApiTokenStore from "@/hooks/use-api-token-store";
 import Button from "../button";
 
@@ -23,8 +23,9 @@ const TokenSettingsDialog = () => {
         aria-label="Settings"
         color="default"
         onClick={() => setOpen(true)}
+        className="text-slate-50"
       >
-        <SettingsRoundedIcon />
+        <KeyRoundedIcon />
       </IconButton>
       <Dialog
         open={open}
