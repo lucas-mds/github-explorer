@@ -6,6 +6,7 @@ import {
   CardContent,
   Collapse,
   Typography,
+  LinearProgress,
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useSearchUserRepositories, {
@@ -55,7 +56,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
     <Card
       data-testid={`user-card-${name}`}
       id={`user-card-${name}`}
-      className="mb-4"
+      className="mb-4 relative"
     >
       <CardContent onClick={handleClick}>
         <Box className="flex flex-row items-center justify-between">
@@ -65,14 +66,10 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
               {name}
             </Typography>
           </Box>
-          {open && !isLoading ? (
-            <ExpandLess />
-          ) : (
-            <ExpandMore className={`${isLoading && "animate-pulse"}`} />
-          )}
+          {open && !isLoading ? <ExpandLess /> : <ExpandMore />}
         </Box>
       </CardContent>
-      <Collapse in={open && !isLoading} timeout={600}>
+      <Collapse in={open && !isLoading} timeout={100}>
         <ReposList
           repos={repos}
           isLoading={isLoading || isFetchingNextPage}
@@ -86,6 +83,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
           }
         />
       </Collapse>
+      {isLoading && <LinearProgress className="absolute bottom-0 w-full" />}
     </Card>
   );
 };

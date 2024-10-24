@@ -72,7 +72,7 @@ const ReposList = ({
           <Typography variant="body2">No repositories found</Typography>
         </ListItem>
       )}
-      {!repos && errorMessage && (
+      {!hasResults && errorMessage && (
         <ListItem>
           <Typography variant="body2" color="error">
             {errorMessage}
