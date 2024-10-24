@@ -1,7 +1,11 @@
 import { Octokit } from "octokit";
+import { Endpoints } from "@octokit/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import getNextPageParameter from "@/utils/get-next-page-parameter";
 import useOctokit from "../user-octokit";
+
+export type UsersResponse =
+  Endpoints["GET /search/users"]["response"]["data"]["items"];
 
 const fetchUsers = async (query: string, page: number, octokit: Octokit) => {
   const response = await octokit.request("GET /search/users", {

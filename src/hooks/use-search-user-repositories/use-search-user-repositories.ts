@@ -1,15 +1,13 @@
 import { Octokit } from "octokit";
+import { Endpoints } from "@octokit/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import getNextPageParameter from "@/utils/get-next-page-parameter";
 import useOctokit from "../user-octokit";
 
-export type Item = {
-  id: number;
-  name: string;
-  svn_url: string;
-  stargazers_count: number;
-  description: string;
-};
+export type RepositoriesResponse = ({
+  isLastOfItsPage: boolean;
+  hasNextPageItem: boolean;
+} & Endpoints["GET /users/{username}/repos"]["response"]["data"][0])[];
 
 export type ErrorResponse = {
   response: {
@@ -34,7 +32,7 @@ const fetchUserRepositories = async (
 
   const nextPage = getNextPageParameter(response.headers);
 
-  return { nextPage, items: response.data as Item[] };
+  return { nextPage, items: response.data };
 };
 
 const useSearchUserRepositories = (username: string, open: boolean) => {

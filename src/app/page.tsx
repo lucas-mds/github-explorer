@@ -1,16 +1,26 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import SearchBar from "@/components/search-bar";
-import UserCard from "@/components/user-card";
-import useSearchUsers from "@/hooks/use-search-users";
+import useSearchUsers, { UsersResponse } from "@/hooks/use-search-users";
 import { AppBar, Box, Typography } from "@mui/material";
-import Button from "@/components/button";
 import TokenSettingsDialog from "@/components/token-settings-dialog";
+import UsersList from "@/components/user-list";
 
 export default function Home() {
   const [query, setQuery] = useState("");
   const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
     useSearchUsers(query);
+
+  const users = useMemo(() => {
+    const users: UsersResponse = [];
+    data?.pages.map((page) =>
+      page.items.map((user) => {
+        users.push(user);
+      })
+    );
+
+    return users;
+  }, [data]);
 
   return (
     <>
@@ -23,40 +33,14 @@ export default function Home() {
       <div className="p-10">
         <main>
           <SearchBar isLoading={isLoading} onClick={setQuery} />
-          {query && data && !isLoading && (
-            <Box className="my-4">
-              <Typography variant="caption">
-                Showing results for &quot;{query}&quot;
-              </Typography>
-            </Box>
-          )}
-          {!data?.pages[0].items.length && !isLoading && (
-            <Typography variant="subtitle1" className="my-6 text-center">
-              You haven’t searched for anything yet
-            </Typography>
-          )}
-          {data?.pages.map((page) =>
-            page.items.map((user) => (
-              <UserCard
-                key={user.id}
-                name={user.login}
-                avatarUrl={user.avatar_url}
-              />
-            ))
-          )}
-          {!isLoading && hasNextPage && (
-            <Box className=" flex justify-center">
-              <Button
-                isLoading={isFetchingNextPage}
-                fullWidth
-                variant="contained"
-                className="md:w-60 "
-                onClick={() => fetchNextPage()}
-              >
-                Load more
-              </Button>
-            </Box>
-          )}
+          <UsersList
+            items={users}
+            searchTerm={query}
+            isLoading={isLoading}
+            isFetchingNextPage={isFetchingNextPage}
+            hasNextPage={hasNextPage}
+            onLoadMore={fetchNextPage}
+          />
         </main>
       </div>
     </>
