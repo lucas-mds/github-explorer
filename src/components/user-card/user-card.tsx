@@ -22,8 +22,15 @@ type UserCardProps = {
 const UserCard = ({ name, avatarUrl }: UserCardProps) => {
   const [open, setOpen] = useState(false);
   const [enableSearch, setEnableSearch] = useState(false);
-  const { data, hasNextPage, isLoading, error, isError, fetchNextPage } =
-    useSearchUserRepositories(name, enableSearch);
+  const {
+    data,
+    hasNextPage,
+    isLoading,
+    error,
+    isError,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useSearchUserRepositories(name, enableSearch);
 
   const handleClick = () => {
     setOpen(!open);
@@ -68,7 +75,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
       <Collapse in={open && !isLoading} timeout={600}>
         <ReposList
           repos={repos}
-          isLoading={isLoading}
+          isLoading={isLoading || isFetchingNextPage}
           hasNextPage={hasNextPage}
           onClick={() => fetchNextPage()}
           errorMessage={
