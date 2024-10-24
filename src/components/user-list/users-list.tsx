@@ -20,6 +20,7 @@ const UsersList = ({
   hasNextPage,
   onLoadMore,
 }: UsersListProps) => {
+  const isEmptySearch = items.length === 0 && searchTerm && !isLoading;
   const isSearchingForUser = searchTerm && items;
   const haventSearchedYet = !searchTerm;
   const isFetchingData = isLoading || isFetchingNextPage;
@@ -33,6 +34,11 @@ const UsersList = ({
             {searchTerm}&quot;
           </Typography>
         </Box>
+      )}
+      {isEmptySearch && (
+        <Typography variant="subtitle1" className="my-6 text-center">
+          No users found
+        </Typography>
       )}
       {haventSearchedYet && (
         <Typography variant="subtitle1" className="my-6 text-center">

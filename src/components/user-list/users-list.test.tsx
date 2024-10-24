@@ -78,6 +78,14 @@ describe("<UsersList />", () => {
 
         expect(screen.queryAllByTestId(/^user-card-/)).toHaveLength(0);
       });
+
+      it("Should render a message saying that no users were found", () => {
+        renderUsersList({
+          items: [],
+        });
+
+        expect(screen.getByText("No users found")).toBeDefined();
+      });
     });
   });
 });

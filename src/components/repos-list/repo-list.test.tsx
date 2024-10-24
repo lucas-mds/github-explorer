@@ -22,6 +22,12 @@ describe("<ReposList />", () => {
 
         expect(screen.queryAllByTestId(/^repo-line-item-/)).toHaveLength(0);
       });
+
+      it("Should render a message saying that no repositories were found", () => {
+        renderReposList({});
+
+        expect(screen.getByText("No repositories found")).toBeDefined();
+      });
     });
 
     describe("When the list is not empty", () => {
