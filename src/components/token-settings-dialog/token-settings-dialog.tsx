@@ -19,6 +19,7 @@ const TokenSettingsDialog = () => {
   return (
     <>
       <IconButton
+        id="settings-button"
         aria-label="Settings"
         color="default"
         onClick={() => setOpen(true)}

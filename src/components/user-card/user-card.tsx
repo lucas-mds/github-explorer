@@ -35,7 +35,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
   };
 
   return (
-    <Card className="mb-4">
+    <Card id={`user-card-${name}`} className="mb-4">
       <CardContent onClick={handleClick}>
         <Box className="flex flex-row items-center justify-between">
           <Box className="flex flex-row items-center">

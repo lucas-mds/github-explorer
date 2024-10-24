@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "e2e:chrome": "cypress run --browser chrome"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -27,6 +28,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
+    "cypress": "^13.15.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.0",
     "postcss": "^8.4.47",

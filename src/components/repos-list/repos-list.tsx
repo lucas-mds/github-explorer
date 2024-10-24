@@ -47,7 +47,12 @@ const ReposList = ({
               <ListItem>
                 <Box className="w-full">
                   <Box className="w-full flex flex-row justify-between">
-                    <Link variant="body2" href={item.svn_url} target="_blank">
+                    <Link
+                      id={`repo-link-${item.id}`}
+                      variant="body2"
+                      href={item.svn_url}
+                      target="_blank"
+                    >
                       {item.name}
                     </Link>
                     <Box className="flex flex-row">
