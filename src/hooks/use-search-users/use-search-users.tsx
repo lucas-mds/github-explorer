@@ -34,6 +34,7 @@ const useSearchUsers = (query: string) => {
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
     enabled: !!query,
+    retry: false,
   });
 };
 

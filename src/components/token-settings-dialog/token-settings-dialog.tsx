@@ -6,6 +6,7 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
+  InputAdornment,
   TextField,
 } from "@mui/material";
 import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
@@ -14,7 +15,7 @@ import Button from "../button";
 
 const TokenSettingsDialog = () => {
   const [open, setOpen] = useState(false);
-  const { setToken } = useApiTokenStore();
+  const { apiToken, setToken } = useApiTokenStore();
 
   return (
     <>
@@ -50,13 +51,23 @@ const TokenSettingsDialog = () => {
           </DialogContentText>
           <TextField
             autoFocus
-            required
+            fullWidth
+            defaultValue={apiToken}
             margin="dense"
             id="name"
             name="token"
-            placeholder="token"
-            fullWidth
-            variant="standard"
+            placeholder="Enter token"
+            variant="outlined"
+            slotProps={{
+              input: {
+                className: "mt-4 md:h-9",
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <KeyRoundedIcon />
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
         </DialogContent>
         <DialogActions>

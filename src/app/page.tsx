@@ -8,8 +8,24 @@ import UsersList from "@/components/user-list";
 
 export default function Home() {
   const [query, setQuery] = useState("");
-  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
-    useSearchUsers(query);
+  const {
+    data,
+    error,
+    isLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+  } = useSearchUsers(query);
+
+  const handleClick = (nextQuery: string) => {
+    if (error && nextQuery) {
+      refetch();
+      return;
+    }
+
+    setQuery(nextQuery);
+  };
 
   const users = useMemo(() => {
     const users: UsersResponse = [];
@@ -31,7 +47,7 @@ export default function Home() {
         </Box>
       </AppBar>
       <Container component={"main"} maxWidth="md" className="p-10 md:px-0">
-        <SearchBar isLoading={isLoading} onClick={setQuery} />
+        <SearchBar isLoading={isLoading} onClick={handleClick} />
         <UsersList
           items={users}
           searchTerm={query}
@@ -39,6 +55,7 @@ export default function Home() {
           isFetchingNextPage={isFetchingNextPage}
           hasNextPage={hasNextPage}
           onLoadMore={fetchNextPage}
+          errorMessage={error?.message}
         />
       </Container>
     </>

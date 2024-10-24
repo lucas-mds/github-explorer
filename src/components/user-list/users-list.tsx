@@ -9,6 +9,7 @@ export type UsersListProps = {
   isLoading: boolean;
   isFetchingNextPage: boolean;
   hasNextPage: boolean;
+  errorMessage?: string;
   onLoadMore: () => void;
 };
 
@@ -18,15 +19,26 @@ const UsersList = ({
   isLoading,
   isFetchingNextPage,
   hasNextPage,
+  errorMessage,
   onLoadMore,
 }: UsersListProps) => {
-  const isEmptySearch = items.length === 0 && searchTerm && !isLoading;
-  const isSearchingForUser = searchTerm && items;
+  const isSearchingForUser = searchTerm && items && !errorMessage;
   const haventSearchedYet = !searchTerm;
   const isFetchingData = isLoading || isFetchingNextPage;
+  const isEmptySearch =
+    items.length === 0 && searchTerm && !errorMessage && !isLoading;
 
   return (
     <>
+      {errorMessage && (
+        <Typography
+          variant="subtitle1"
+          color="error"
+          className="my-6 text-center"
+        >
+          {errorMessage}
+        </Typography>
+      )}
       {isSearchingForUser && (
         <Box className="my-4">
           <Typography variant="caption">

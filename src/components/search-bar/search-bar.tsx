@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { InputAdornment, TextField } from "@mui/material";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import Button from "../button";
@@ -11,12 +11,16 @@ type SearchBarProps = {
 const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
   const [internalValue, setInternalValue] = useState("");
 
-  const handleClick = () => {
+  const handleClick = (event: FormEvent) => {
+    event.preventDefault();
     onClick(internalValue);
   };
 
   return (
-    <div className="flex flex-col items-center md:flex-row">
+    <form
+      className="flex flex-col items-center md:flex-row"
+      onSubmit={handleClick}
+    >
       <TextField
         fullWidth
         value={internalValue}
@@ -36,14 +40,14 @@ const SearchBar = ({ isLoading, onClick }: SearchBarProps) => {
         }}
       />
       <Button
+        type="submit"
         className="mt-4 w-full md:w-60 md:mt-0 md:ml-4 md:h-9"
         variant="contained"
-        onClick={handleClick}
         isLoading={isLoading}
       >
         Search
       </Button>
-    </div>
+    </form>
   );
 };
 
