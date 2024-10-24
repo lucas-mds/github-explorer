@@ -23,6 +23,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
   const [enableSearch, setEnableSearch] = useState(false);
   const {
     data: repos,
+    hasNextPage,
     isLoading,
     error,
     fetchNextPage,
@@ -53,11 +54,12 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
       <Collapse in={open && !isLoading} timeout={600}>
         <ReposList
           repos={repos}
+          hasNextPage={hasNextPage}
+          onClick={() => fetchNextPage()}
           errorMessage={
             (error as unknown as ErrorResponse)?.response?.data.message ||
             "An error has occurred"
           }
-          onClick={() => fetchNextPage()}
         />
       </Collapse>
     </Card>

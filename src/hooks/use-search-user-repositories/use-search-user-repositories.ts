@@ -27,7 +27,7 @@ const fetchUserRepositories = async (
       "X-GitHub-Api-Version": "2022-11-28",
     },
     page,
-    per_page: 5,
+    per_page: 100,
   });
 
   const nextPage = getNextPageParameter(response.headers);

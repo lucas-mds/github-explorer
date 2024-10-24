@@ -13,10 +13,16 @@ type ReposListProps = {
     unknown
   >;
   errorMessage?: string;
+  hasNextPage: boolean;
   onClick: () => void;
 };
 
-const ReposList = ({ repos, errorMessage, onClick }: ReposListProps) => {
+const ReposList = ({
+  repos,
+  errorMessage,
+  hasNextPage,
+  onClick,
+}: ReposListProps) => {
   const formatStarsCount = (starCount: number) => {
     if (starCount >= 1000) {
       return `${(starCount / 1000).toFixed(1)}k`;
@@ -77,9 +83,11 @@ const ReposList = ({ repos, errorMessage, onClick }: ReposListProps) => {
           </Typography>
         </ListItem>
       )}
-      <Box className=" flex justify-center">
-        <Button onClick={onClick}>Load more</Button>
-      </Box>
+      {hasNextPage && (
+        <Box className=" flex justify-center">
+          <Button onClick={onClick}>Load more</Button>
+        </Box>
+      )}
     </List>
   );
 };
