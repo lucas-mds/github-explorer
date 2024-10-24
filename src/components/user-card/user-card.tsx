@@ -54,6 +54,7 @@ const UserCard = ({ name, avatarUrl }: UserCardProps) => {
       <Collapse in={open && !isLoading} timeout={600}>
         <ReposList
           repos={repos}
+          isLoading={isLoading}
           hasNextPage={hasNextPage}
           onClick={() => fetchNextPage()}
           errorMessage={

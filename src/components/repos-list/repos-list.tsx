@@ -12,6 +12,7 @@ type ReposListProps = {
     },
     unknown
   >;
+  isLoading: boolean;
   errorMessage?: string;
   hasNextPage: boolean;
   onClick: () => void;
@@ -19,6 +20,7 @@ type ReposListProps = {
 
 const ReposList = ({
   repos,
+  isLoading,
   errorMessage,
   hasNextPage,
   onClick,
@@ -39,6 +41,7 @@ const ReposList = ({
         page.items.map((item, itemIndex) => {
           const isLastItem = itemIndex === page.items.length - 1;
           const hasNextItem = pageIndex < repos?.pages.length - 1;
+
           return (
             <Box key={item.id}>
               <ListItem>
@@ -85,7 +88,9 @@ const ReposList = ({
       )}
       {hasNextPage && (
         <Box className=" flex justify-center">
-          <Button onClick={onClick}>Load more</Button>
+          <Button isLoading={isLoading} onClick={onClick}>
+            Load more
+          </Button>
         </Box>
       )}
     </List>
